@@ -3,10 +3,11 @@ package io.codeswarm
 import scala.collection.mutable.ArrayBuffer
 
 object TopologicalSort {
-  def dfs(graph: Array[ArrayBuffer[Int]], used: Array[Boolean], order: ArrayBuffer[Int], u: Int) {
+
+  def depthFirstSearch(graph: Array[ArrayBuffer[Int]], used: Array[Boolean], order: ArrayBuffer[Int], u: Int) {
     used(u) = true
     for (v <- graph(u); if !used(v))
-      dfs(graph, used, order, v)
+      depthFirstSearch(graph, used, order, v)
     order += u
   }
 
@@ -16,7 +17,7 @@ object TopologicalSort {
     val order = ArrayBuffer[Int]()
 
     for (i <- 0 until n; if !used(i))
-      dfs(graph, used, order, i)
+      depthFirstSearch(graph, used, order, i)
 
     order.reverse.toArray
   }
